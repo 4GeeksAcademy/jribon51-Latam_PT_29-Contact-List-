@@ -8,9 +8,11 @@ import { Single } from "./views/single";
 import injectContext from "./store/appContext";
 import Card from "./component/card";
 import AddContact from "./component/addContact";
+import UpdateContact from "./component/updateContact";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+
 
 //create your first component
 const Layout = () => {
@@ -29,6 +31,7 @@ const Layout = () => {
 						<Route path="/single/:theid" element={<Single />} />
 						<Route path="/card/:parametro" element={<Card />} />
 						<Route path="/addContact" element={<AddContact />} />
+						<Route path="/updateContact/:idContacto" element={<UpdateContact />} />
 						<Route path="*" element={<h1>Not found!</h1>} />
 					</Routes>
 					<Footer />

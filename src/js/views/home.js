@@ -7,6 +7,7 @@ import "../../styles/home.css";
 
 export const Home = () => {
 	const rutaContactos = "https://playground.4geeks.com/contact/agendas/jribon51/contacts"
+	const rutaEliminar = "https://playground.4geeks.com/contact/agendas/jribon51/contacts/"
 
 
 
@@ -20,6 +21,24 @@ export const Home = () => {
 			.then(data => { setContactos(data.contacts) })
 			.catch(error => error)
 
+	}
+
+	function eliminarContacto(idContacto) {
+
+		fetch(rutaEliminar + idContacto, {
+			method: "DELETE",
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+			.then(response => {
+				if (response.status == 204) {
+					getContactos();
+				}
+
+
+			})
+			.catch(error => error)
 	}
 
 	useEffect(() => {
@@ -64,8 +83,15 @@ export const Home = () => {
 							</div>
 							<div className="col-md-4">
 								<div className="d-flex justify-content-end">
-									<i className="p-4 fa-regular fa-pen-to-square"></i>
-									<i className="p-4 fa-solid fa-trash"></i>
+									<Link to={`/updateContact/${contacto.id}`}>
+										<button className="btn">
+											<i className="p-4 fa-regular fa-pen-to-square"></i>
+										</button>
+									</Link>
+									<button onClick={() => eliminarContacto(contacto.id)} className="btn">
+										<i className="p-4 fa-solid fa-trash" ></i>
+									</button>
+
 								</div>
 							</div>
 						</div>
