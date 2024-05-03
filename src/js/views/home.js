@@ -1,27 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from 'react-router-dom';
 import "../../styles/home.css";
+import { Context } from "../store/appContext";
 
 
 
 
 export const Home = () => {
-	const rutaContactos = "https://playground.4geeks.com/contact/agendas/jribon51/contacts"
-	const rutaEliminar = "https://playground.4geeks.com/contact/agendas/jribon51/contacts/"
+
+	const { store, actions } = useContext(Context);
+	console.log(useContext(Context))
 
 
-
-	const [contactos, setContactos] = useState([]);
-
-
-	function getContactos() {
-
-		fetch(rutaContactos)
-			.then(Response => Response.json())
-			.then(data => { setContactos(data.contacts) })
-			.catch(error => error)
-
-	}
 
 	function eliminarContacto(idContacto) {
 
@@ -41,9 +31,6 @@ export const Home = () => {
 			.catch(error => error)
 	}
 
-	useEffect(() => {
-		getContactos()
-	}, [])
 
 
 	return (
@@ -54,7 +41,7 @@ export const Home = () => {
 				</Link>
 
 			</div>
-			{contactos.map((contacto, index) => {
+			{store.contactos.map((contacto, index) => {
 				return (
 					<div key={index} className="card mb-3" >
 						<div className="row g-0">
@@ -88,7 +75,7 @@ export const Home = () => {
 											<i className="p-4 fa-regular fa-pen-to-square"></i>
 										</button>
 									</Link>
-									<button onClick={() => eliminarContacto(contacto.id)} className="btn">
+									<button onClick={() => actions.eliminarContacto(contacto.id)} className="btn">
 										<i className="p-4 fa-solid fa-trash" ></i>
 									</button>
 
@@ -102,5 +89,6 @@ export const Home = () => {
 
 
 		</div>
+
 	);
 }

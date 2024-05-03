@@ -1,4 +1,8 @@
 const getState = ({ getStore, getActions, setStore }) => {
+	const rutaContactos = "https://playground.4geeks.com/contact/agendas/jribon51/contacts"
+
+
+
 	return {
 		store: {
 			demo: [
@@ -12,7 +16,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			contactos: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -37,9 +42,43 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			getContactos: function getContactos() {
+
+				fetch(rutaContactos)
+					.then(response => response.json())
+					.then(data => {
+						console.log("data", data)
+						setStore({ contactos: data.contacts })
+					})
+					.catch(error =>{
+						console.error("Error al traer lista de  contactos:", error);
+					} )
+
+			},
+			eliminarContacto: (idContacto) => {
+
+				fetch(`${rutaContactos}/${idContacto}`, {
+					method: "DELETE",
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+					.then(response => {
+						if (response.status == 204) {
+							getActions().getContactos();
+						}
+
+
+					})
+					.catch(error =>{
+						console.error("Error al eliminar contacto:", error);
+					} )
 			}
 		}
 	};
 };
+
+
 
 export default getState;

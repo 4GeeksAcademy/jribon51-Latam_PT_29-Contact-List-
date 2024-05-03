@@ -8,7 +8,7 @@ const UpdateContact = () => {
     const params = useParams()
     console.log(params)
 
-    const rutaContactos = "https://playground.4geeks.com/contact/agendas/jribon51/contacts/"
+    const rutaContactos = "https://playground.4geeks.com/contact/agendas/jribon51/"
     const updContact = "https://playground.4geeks.com/contact/agendas/jribon51/contacts/"
 
     const [fullName, setFullName] = useState("");
@@ -17,35 +17,13 @@ const UpdateContact = () => {
     const [address, setAddress] = useState("");
 
 
-
-
-    // function getContactos() {
-    //     console.log("se ejecuto la funcion")
-    //     fetch(rutaContactos)
-    //         .then(Response => Response.json())
-    //         .then(data => {
-    //             console.log(data);
-    //             const resultado = data.contacts.find(value => value.contacts.id == params.idContacto);
-    //             console.log("el resultado de los id ",resultado)
-    //             if (resultado) {
-    //                 setFullName(data.fullName)
-    //                 setEmail(data.email)
-    //                 setPhone(data.phone)
-    //                 setAddress(data.address)
-    //             }
-
-    //         })
-    //         .catch(error => error)
-
-    // }
-
     function getContactos() {
         console.log("se ejecutó la función");
         fetch(rutaContactos)
-            .then(Response => Response.json())
+            .then(response => response.json())
             .then(data => {
                 console.log("resultado data ", data);
-                const contact = data.contact.find(contact => contact.id == (params.idContacto));
+                const contact = data.contacts.find(contact => contact.id == (params.idContacto));
                 console.log(contact)
                 if (contact) {
                     setFullName(contact.name)
