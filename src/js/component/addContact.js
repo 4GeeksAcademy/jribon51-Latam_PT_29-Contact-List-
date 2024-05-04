@@ -1,49 +1,18 @@
-import { useState, useEffect } from "react";
-import React from "react";
+
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 
 
 const AddContact = () => {
-    const addContact = "https://playground.4geeks.com/contact/agendas/jribon51/contacts"
+    const { store, actions } = useContext(Context)
+    console.log(useContext(Context))
 
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
-
-
-    function agregarContacto() {
-
-        fetch(addContact,
-            {
-                method: "POST",
-                body: JSON.stringify({
-                    "name": fullName,
-                    "phone": phone,
-                    "email": email,
-                    "address": address
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-        )
-            .then(response => response.json())
-            .then(data => {
-                data
-                setFullName("")
-                setEmail("")
-                setPhone("")
-                setAddress("")
-                // window.location.href = "/";
-            })
-            .catch(error => error)
-    }
-
-    // useEffect(() => {
-    // 	agregarContacto()
-    // }, [])
 
 
     return (
@@ -68,7 +37,7 @@ const AddContact = () => {
                 </div>
             </form>
             <Link to="/">
-                <button type="button" class="btn btn btn-primary mt-3 mb-2 w-100" onClick={agregarContacto} >save</button>
+                <button type="button" class="btn btn btn-primary mt-3 mb-2 w-100" onClick={() => { actions.agregarContacto(fullName, email, phone, address) }} >save</button>
             </Link>
             <Link to="/">
                 <a href="#" style={{ "text-decoration": "none" }}>or get back to contacts</a>

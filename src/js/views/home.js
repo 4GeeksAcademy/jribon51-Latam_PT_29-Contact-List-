@@ -13,26 +13,6 @@ export const Home = () => {
 
 
 
-	function eliminarContacto(idContacto) {
-
-		fetch(rutaEliminar + idContacto, {
-			method: "DELETE",
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-			.then(response => {
-				if (response.status == 204) {
-					getContactos();
-				}
-
-
-			})
-			.catch(error => error)
-	}
-
-
-
 	return (
 		<div className="container">
 			<div className="d-flex mb-2">

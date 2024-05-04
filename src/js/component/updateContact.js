@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 
 
 const UpdateContact = () => {
+    const { store, actions } = useContext(Context)
     const params = useParams()
     console.log(params)
 
     const rutaContactos = "https://playground.4geeks.com/contact/agendas/jribon51/"
-    const updContact = "https://playground.4geeks.com/contact/agendas/jribon51/contacts/"
+    // const updContact = "https://playground.4geeks.com/contact/agendas/jribon51/contacts/"
 
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
@@ -31,7 +33,7 @@ const UpdateContact = () => {
                     setPhone(contact.phone)
                     setAddress(contact.address)
                 }
-                
+
             })
             .catch(error => console.error(error));
     }
@@ -41,30 +43,6 @@ const UpdateContact = () => {
         getContactos()
 
     }, [])
-
-
-    function actualizarContacto() {
-        console.log(params)
-        fetch(updContact + params.idContacto,
-            {
-                method: "PUT",
-                body: JSON.stringify({
-                    "name": fullName,
-                    "phone": phone,
-                    "email": email,
-                    "address": address
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-        )
-            .then(response => response.json())
-            .then(data => {data
-                window.location.href = "/";})
-            .catch(error => error)
-    }
-
 
 
 
@@ -91,7 +69,7 @@ const UpdateContact = () => {
                 </div>
             </form>
             <Link to="/">
-                <button type="button" class="btn btn btn-primary mt-3 mb-2 w-100" onClick={actualizarContacto} >save</button>
+                <button type="button" class="btn btn btn-primary mt-3 mb-2 w-100" onClick={()=>{actions.actualizarContacto(params,fullName,email,phone,address)}} >save</button>
             </Link>
             <Link to="/">
                 <a href="#" style={{ "text-decoration": "none" }}>or get back to contacts</a>
