@@ -103,9 +103,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.error("Error al crear contacto:", error);
 					})
 			},
-			actualizarContacto: (params, fullName, email, phone, address) => {
-				console.log(params)
-				fetch(updContact + params.idContacto,
+			actualizarContacto: (idContacto, fullName, email, phone, address) => {
+				console.log(idContacto)
+				fetch(updContact + idContacto,
 					{
 						method: "PUT",
 						body: JSON.stringify({
@@ -127,24 +127,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.catch(error => error)
 			 }
-			// getContactosActualizar: (params) => {
-			// 	console.log("se ejecutó la función");
-			// 	fetch(rutaContactos)
-			// 		.then(response => response.json())
-			// 		.then(data => {
-			// 			console.log("resultado data ", data);
-			// 			const contact = data.contacts.find(contact => contact.id == (params.idContacto));
-			// 			console.log(contact)
-			// 			if (contact) {
-			// 				setFullName(contact.name)
-			// 				setEmail(contact.email)
-			// 				setPhone(contact.phone)
-			// 				setAddress(contact.address)
-			// 			}
-
-			// 		})
-			// 		.catch(error => console.error(error));
-			// }
 
 		}
 	};

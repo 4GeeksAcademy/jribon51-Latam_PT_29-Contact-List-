@@ -7,11 +7,9 @@ import { Context } from "../store/appContext";
 
 const UpdateContact = () => {
     const { store, actions } = useContext(Context)
-    const params = useParams()
-    console.log(params)
+    const { idContacto } = useParams()
 
-    const rutaContactos = "https://playground.4geeks.com/contact/agendas/jribon51/"
-    // const updContact = "https://playground.4geeks.com/contact/agendas/jribon51/contacts/"
+  
 
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
@@ -19,23 +17,13 @@ const UpdateContact = () => {
     const [address, setAddress] = useState("");
 
 
-    function getContactos() {
-        console.log("se ejecutó la función");
-        fetch(rutaContactos)
-            .then(response => response.json())
-            .then(data => {
-                console.log("resultado data ", data);
-                const contact = data.contacts.find(contact => contact.id == (params.idContacto));
-                console.log(contact)
-                if (contact) {
-                    setFullName(contact.name)
-                    setEmail(contact.email)
-                    setPhone(contact.phone)
-                    setAddress(contact.address)
-                }
 
-            })
-            .catch(error => console.error(error));
+    function getContactos() {
+        console.log(contact)
+        setFullName(contact.name)
+        setEmail(contact.email)
+        setPhone(contact.phone)
+        setAddress(contact.address)
     }
 
     useEffect(() => {
@@ -69,7 +57,7 @@ const UpdateContact = () => {
                 </div>
             </form>
             <Link to="/">
-                <button type="button" class="btn btn btn-primary mt-3 mb-2 w-100" onClick={()=>{actions.actualizarContacto(params,fullName,email,phone,address)}} >save</button>
+                <button type="button" class="btn btn btn-primary mt-3 mb-2 w-100" onClick={() => { actions.actualizarContacto(idContacto, fullName, email, phone, address) }} >save</button>
             </Link>
             <Link to="/">
                 <a href="#" style={{ "text-decoration": "none" }}>or get back to contacts</a>
